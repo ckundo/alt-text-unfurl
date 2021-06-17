@@ -34,8 +34,10 @@ app.event('link_shared', async ({ event, client, channel }) => {
     const unfurls = {};
     let descriptions = [];
 
-    const missing = !result.extended_entities ||
-      result.extended_entities.media.every(img => img.ext_alt_text === null);
+    const hasImage = result.extended_entities;
+    if (!hasImage) { return; }
+
+    const missing = result.extended_entities.media.every(img => img.ext_alt_text === null);
 
     descriptions = missing ? ["could not find alt text."] :
       result.extended_entities.media.map(img => img.ext_alt_text);
