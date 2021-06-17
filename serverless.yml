@@ -1,12 +1,16 @@
 service: serverless-bolt-js
-frameworkVersion: '2'
 useDotenv: true
+frameworkVersion: '2'
 provider:
   name: aws
   runtime: nodejs12.x
   environment:
     SLACK_SIGNING_SECRET: ${env:SLACK_SIGNING_SECRET}
     SLACK_BOT_TOKEN: ${env:SLACK_BOT_TOKEN}
+    TWITTER_CONSUMER_KEY: ${env:TWITTER_CONSUMER_KEY}
+    TWITTER_CONSUMER_SECRET: ${env:TWITTER_CONSUMER_SECRET}
+    TWITTER_ACCESS_TOKEN_KEY: ${env:TWITTER_ACCESS_TOKEN_KEY}
+    TWITTER_ACCESS_TOKEN_SECRET: ${env:TWITTER_ACCESS_TOKEN_SECRET}
 functions:
   slack:
     handler: app.handler
