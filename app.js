@@ -1,6 +1,6 @@
 const { App, ExpressReceiver } = require('@slack/bolt');
-const Twitter = require('twitter');
 const serverlessExpress = require('@vendia/serverless-express');
+const Twitter = require('twitter-lite');
 
 const expressReceiver = new ExpressReceiver({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
@@ -25,21 +25,22 @@ app.event('link_shared', async ({ event, client, channel }) => {
   const parts = url.split("/")
   const id = parts[parts.length - 1];
 
-
   try {
-    const result = await twitter.get('statuses/show', { id: id, include_ext_alt_text: true });
+    const result = await twitter.get('statuses/show', {
+      id: id,
+      include_ext_alt_text: true
+    });
     const unfurls = {};
     let descriptions = [];
 
-    if (!result.extended_entities) {
-      descriptions = ["could not find alt text."];
-    } else {
-      descriptions = result.extended_entities.media.map(img => img.ext_alt_text);
-    }
+    const missing = !result.extended_entities ||
+      result.extended_entities.media.every(img => img.ext_alt_text === null);
+
+    descriptions = missing ? ["could not find alt text."] :
+      result.extended_entities.media.map(img => img.ext_alt_text);
 
     unfurls[url] = { title: descriptions.join("\n") }
     await client.chat.unfurl({ token: process.env.SLACK_BOT_TOKEN, ts: event.message_ts, channel: event.channel, unfurls });
-    console.log(descriptions);
   } catch (err) {
     console.log(err);
   }

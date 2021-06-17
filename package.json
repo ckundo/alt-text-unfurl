@@ -2,7 +2,7 @@
   "dependencies": {
     "@slack/bolt": "^3.4.0",
     "@vendia/serverless-express": "^4.3.9",
-    "twitter": "^1.7.1"
+    "twitter-lite": "^1.1.0"
   },
   "devDependencies": {
     "serverless": "^2.46.0",
