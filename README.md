@@ -19,3 +19,5 @@ In Slack:
 `/invite @Alt Text Unfurl`
 
 Paste a link to a tweet that has alt text into the channel. For example https://twitter.com/philosophequeer/status/1404408769551994880
+
+![Screen Shot 2021-06-17 at 12 10 22 PM](https://user-images.githubusercontent.com/108163/122434328-0061fb80-cf65-11eb-94c7-cec35a612ca0.png)
