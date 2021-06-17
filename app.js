@@ -28,7 +28,8 @@ app.event('link_shared', async ({ event, client, channel }) => {
   try {
     const result = await twitter.get('statuses/show', {
       id: id,
-      include_ext_alt_text: true
+      include_ext_alt_text: true,
+      tweet_mode: 'extended',
     });
     const unfurls = {};
     let descriptions = [];
