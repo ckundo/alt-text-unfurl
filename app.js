@@ -38,7 +38,7 @@ app.event('link_shared', async ({ event, client, channel }) => {
     }
 
     unfurls[url] = { title: descriptions.join("\n") }
-    client.chat.unfurl({ token: process.env.SLACK_BOT_TOKEN, ts: event.message_ts, channel: event.channel, unfurls });
+    await client.chat.unfurl({ token: process.env.SLACK_BOT_TOKEN, ts: event.message_ts, channel: event.channel, unfurls });
     console.log(descriptions);
   } catch (err) {
     console.log(err);
